@@ -1,0 +1,581 @@
+\documentclass[12pt]{article}
+\usepackage{epsfig, epsf, graphicx}
+\usepackage{pstricks, pst-node, psfrag}
+\usepackage{amssymb,amsmath,bm}
+\usepackage{verbatim,enumerate}
+\usepackage{rotating, lscape}
+\usepackage{setspace}
+\usepackage{apacite}
+\usepackage{natbib}
+\usepackage{subfig}
+\usepackage{physics}
+\usepackage{fontawesome}
+\usepackage{color, colortbl}
+\usepackage{tabu}
+\usepackage{xcolor}
+\usepackage[framemethod=default]{mdframed}
+\usepackage{showexpl}
+
+
+\mdfdefinestyle{exampledefault}{%
+linecolor=black,linewidth=1.5pt,
+middlelinewidth=3pt,rightline=true,innerleftmargin=10,innerrightmargin=10}
+\usepackage{tikz}
+\usepackage{multirow}
+\usepackage{bbm}
+\usetikzlibrary{arrows,calc,tikzmark,shapes,fit,positioning}
+\tikzset{box/.style={draw, rectangle, thick, text centered, minimum height=3em}}
+  \tikzset{line/.style={draw, thick, -latex'}}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{multicol,listings,siunitx}
+\usepackage{caption}
+\renewcommand{\thefigure}{S\arabic{figure}}
+%\usepackage[square,sort,comma,numbers]{natbib}
+\usepackage{gensymb}
+%\usepackage{adjustbox}
+\setlength{\oddsidemargin}{-0.125in} \setlength{\topmargin}{-0.5in}
+\setlength{\textwidth}{6.5in} \setlength{\textheight}{9in}
+
+\setlength{\textheight}{9in} \setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-40pt} \setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+
+\setlength{\textheight}{9.4in} \setlength{\textwidth}{6.8in}
+\setlength{\topmargin}{-71pt} \setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{-6pt} \tolerance=500
+%\input psfig.tex
+\setlength{\topmargin}{-56pt} \setlength{\oddsidemargin}{-6pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\wt{\widetilde}
+\def\diag{\hbox{diag}}
+\def\wh{\widehat}
+\def\AIC{\hbox{AIC}}
+\def\BIC{\hbox{BIC}}
+%- Makes the section title start with Appendix in the appendix environment
+\newcommand{\Appendix}
+{%\appendix
+\def\thesection{Appendix~\Alph{section}}
+%\def\thesubsection{\Alph{section}.\arabic{subsection}}
+\def\thesubsection{A.\arabic{subsection}}
+}
+\def\diag{\hbox{diag}}
+\def\bias{\hbox{bias}}
+\def\Siuu{\boldSigma_{i,uu}}
+\def\ANNALS{{\it Annals of Statistics}}
+\def\BIOK{{\it Biometrika}}
+\def\whT{\widehat{\Theta}}
+\def\STATMED{{\it Statistics in Medicine}}
+\def\STATSCI{{\it Statistical Science}}
+\def\JSPI{{\it Journal of Statistical Planning \&amp; Inference}}
+\def\JRSSB{{\it Journal of the Royal Statistical Society, Series B}}
+\def\BMCS{{\it Biometrics}}
+\def\COMMS{{\it Communications in Statistics, Theory \& Methods}}
+\def\JQT{{\it Journal of Quality Technology}}
+\def\STIM{{\it Statistics in Medicine}}
+\def\TECH{{\it Technometrics}}
+\def\AJE{{\it American Journal of Epidemiology}}
+\def\JASA{{\it Journal of the American Statistical Association}}
+\def\CDA{{\it Computational Statistics \& Data Analysis}}
+\def\JCGS{{\it Journal of Computational and Graphical Statistics}}
+\def\JCB{{\it Journal of Computational Biology}}
+\def\BIOINF{{\it Bioinformatics}}
+\def\JAMA{{\it Journal of the American Medical Association}}
+\def\JNUTR{{\it Journal of Nutrition}}
+\def\JCGS{{\it Journal of Computational and Graphical Statistics}}
+\def\LETTERS{{\it Letters in Probability and Statistics}}
+\def\JABES{{\it Journal of Agricultural and
+                      Environmental Statistics}}
+\def\JASA{{\it Journal of the American Statistical Association}}
+\def\ANNALS{{\it Annals of Statistics}}
+\def\JSPI{{\it Journal of Statistical Planning \& Inference}}
+\def\TECH{{\it Technometrics}}
+\def\BIOK{{\it Bio\-me\-tri\-ka}}
+\def\JRSSB{{\it Journal of the Royal Statistical Society, Series B}}
+\def\BMCS{{\it Biometrics}}
+\def\COMMS{{\it Communications in Statistics, Series A}}
+\def\JQT{{\it Journal of Quality Technology}}
+\def\SCAN{{\it Scandinavian Journal of Statistics}}
+\def\AJE{{\it American Journal of Epidemiology}}
+\def\STIM{{\it Statistics in Medicine}}
+\def\ANNALS{{\it Annals of Statistics}}
+\def\whT{\widehat{\Theta}}
+\def\STATMED{{\it Statistics in Medicine}}
+\def\STATSCI{{\it Statistical Science}}
+\def\JSPI{{\it Journal of Statistical Planning \& Inference}}
+\def\JRSSB{{\it Journal of the Royal Statistical Society, Series B}}
+\def\BMCS{{\it Biometrics}}
+\def\COMMS{{\it Communications in Statistics, Theory \& Methods}}
+\def\JQT{{\it Journal of Quality Technology}}
+\def\STIM{{\it Statistics in Medicine}}
+\def\TECH{{\it Technometrics}}
+\def\AJE{{\it American Journal of Epidemiology}}
+\def\JASA{{\it Journal of the American Statistical Association}}
+\def\CDA{{\it Computational Statistics \& Data Analysis}}
+\def\dfrac#1#2{{\displaystyle{#1\over#2}}}
+\def\VS{{\vskip 3mm\noindent}}
+\def\boxit#1{\vbox{\hrule\hbox{\vrule\kern6pt
+          \vbox{\kern6pt#1\kern6pt}\kern6pt\vrule}\hrule}}
+\def\refhg{\hangindent=20pt\hangafter=1}
+\def\refmark{\par\vskip 2mm\noindent\refhg}
+\def\naive{\hbox{naive}}
+\def\itemitem{\par\indent \hangindent2\pahttprindent \textindent}
+\def\var{\hbox{var}}
+\def\cov{\hbox{cov}}
+\def\corr{\hbox{corr}}
+\def\trace{\hbox{trace}}
+\def\refhg{\hangindent=20pt\hangafter=1}
+\def\refmark{\par\vskip 2mm\noindent\refhg}
+\def\Normal{\hbox{Normal}}
+\def\povr{\buildrel p\over\longrightarrow}
+\def\ccdot{{\bullet}}
+\def\bse{\begin{eqnarray*}}
+\def\ese{\end{eqnarray*}}
+\def\be{\begin{eqnarray}}
+\def\ee{\end{eqnarray}}
+\def\bq{\begin{equation}}
+\def\eq{\end{equation}}
+\def\bse{\begin{eqnarray*}}
+\def\ese{\end{eqnarray*}}
+\def\pr{\hbox{pr}}
+\def\CV{\hbox{CV}}
+\def\wh{\widehat}
+\def\trans{^{\rm T}}
+\def\myalpha{{\cal A}}
+\def\th{^{th}}
+
+\definecolor{seagreen}{rgb}{0.18,0.55,0.34}
+\definecolor{lawngreen}{rgb}{0.49,0.99,0}
+\definecolor{lightsalmon}{rgb}{1,0.63,0.48}
+\definecolor{lightyellow}{rgb}{0.99,0.906,0.429}
+\definecolor{kaustgreen}{RGB}{40, 144, 140}
+\definecolor{kaustorange}{RGB}{242, 143, 32}
+\definecolor{lightblue}{RGB}{30, 203, 225}
+\definecolor{olive}{RGB}{128, 148, 107}
+\definecolor{purple2}{RGB}{201, 54, 194}
+\definecolor{gold}{RGB}{216, 176, 39}
+\definecolor{barbiepink}{RGB}{245, 10, 102}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Marc Definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\baselinestretch}{1.2} % Change this 1.5 or whatever
+\newcommand{\qed}{\hfill\hfill\vbox{\hrule\hbox{\vrule\squarebox
+   {.667em}\vrule}\hrule}\smallskip}
+\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbX}{\mathbb{X}}
+\newcommand{\bI}{\mathbf{I}}
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\bY}{\mathbf{Y}}
+\newcommand{\bZ}{\mathbf{Z}}
+\newcommand{\bP}{\mathbf{P}}
+\newcommand{\bR}{\mathbf{R}}
+\newcommand{\bU}{\mathbf{U}}
+\newcommand{\br}{\mathbf{r}}
+\newcommand{\bL}{\mathbf{L}}
+\newcommand{\bW}{\mathbf{W}}
+\newcommand{\bT}{\mathbf{T}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\bz}{\mathbf{z}}
+\newcommand{\bs}{\mathbf{s}}
+\newcommand{\bu}{\mathbf{u}}
+\newcommand{\bmu}{\mathbf{\mu}}
+\newcommand{\bdelta}{\mathbf{\delta}}
+\newcommand{\bepsilon}{\boldsymbol{\epsilon}}
+\newcommand{\balpha}{\boldsymbol{\alpha}}
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bLambda}{\boldsymbol{\Lambda}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\0}{\mathbf{0}}
+\newtheorem{defi}{Definition}
+%\theoremstyle{plain}
+\newtheorem{theo}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{prop}{Proposition}
+\newtheorem{lem}{Lemma}
+%\theoremstyle{remark}
+\newtheorem{rem}{Remark}
+\newtheorem{proof}{Proof}
+
+% \renewcommand{\baselinestretch}{1.25}
+\pagenumbering{arabic}
+
+\DeclareFontFamily{OT1}{pzc}{}
+\DeclareFontShape{OT1}{pzc}{m}{it}{<-> s * [1.10] pzcmi7t}{}
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+
+
+\begin{document}
+
+\thispagestyle{empty} \baselineskip=28pt \vskip 5mm
+\begin{center} {\Large{\bf Supplementary Material for: Spatio-Temporal Cross-Covariance Functions under the Lagrangian Framework with Multiple Advections}}
+	
+\end{center}
+
+\baselineskip=12pt \vskip 10mm
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\baselineskip=26pt
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Codes To Replicate Analyses}
+
+%\textcolor{blue}{\url{https://github.com/enerhiya/Spatio-Temporal-Cross-Covariance-Functions-under-the-Lagrangian-Framework/tree/master/scripts}}% <===============
+%https://disc.gsfc.nasa.gov/information/tools?title=MERRA%20Subsetter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%https://math.stackexchange.com/questions/1799556/cholesky-decomposition-of-a-4-times-4-matrix
+%https://math.stackexchange.com/questions/2711708/showing-that-a-lower-triangular-matrix-is-positive-definite
+
+%The fitted spatio-temporal mean is superimposed (in red) on the timeseries plots in Figure S2.
+
+\section{Proof of Theorem 2}
+
+The derivation below follows the derivation in \cite{schlather2010some}. In order to easily follow the derivation, we color coded the terms that change from the left hand side of the equation to the right hand side. Let $\mathbf{T} = (-t_1 \mathbf{I}_d \quad t_2 \mathbf{I}_d )$ and $\mathbf{v}_{ij} = (\mathbf{v}_{ii}^{\top} \quad \mathbf{v}_{jj}^{\top})^{\top}$. Operating on the exponentials, we have
+
+\begingroup
+\allowdisplaybreaks
+
+ \fontsize{8pt}{10pt}\selectfont 
+
+\begin{eqnarray*}
+& & (\textcolor{seagreen}{\mathbf{s}_1 - \mathbf{s}_2} \textcolor{lightsalmon}{- t_1 \mathbf{v}_{ii} + t_2 \mathbf{v}_{jj}} )^{\top}(\textcolor{seagreen}{\mathbf{s}_1 - \mathbf{s}_2} \textcolor{lightsalmon}{- t_1 \mathbf{v}_{ii} + t_2 \mathbf{v}_{jj}} ) + (\mathbf{v}_{ij} - \boldsymbol{\mu}_{ij})^{\top}\boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} (\mathbf{v}_{ij} - \boldsymbol{\mu}_{ij}) \\
+& = & ( \textcolor{seagreen}{\mathbf{h}} \textcolor{lightsalmon}{+ \mathbf{T} \mathbf{v}_{ij}} )^{\top} ( \textcolor{seagreen}{\mathbf{h}}   \textcolor{lightsalmon}{+ \mathbf{T} \mathbf{v}_{ij}} ) + (\mathbf{v}_{ij} - \boldsymbol{\mu}_{ij})^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} (\mathbf{v}_{ij} - \boldsymbol{\mu}_{ij})
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \textcolor{red}{(\mathbf{h} + \mathbf{T} \mathbf{v}_{ij} )^{\top} ( \mathbf{h} + \mathbf{T} \mathbf{v}_{ij}  )} + (\mathbf{v}_{ij} - \boldsymbol{\mu}_{ij})^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} (\mathbf{v}_{ij} - \boldsymbol{\mu}_{ij}) \\
+& = & \textcolor{red}{\mathbf{h}^{\top} \mathbf{h} + \mathbf{h}^{\top} \mathbf{T} \mathbf{v}_{ij}  + \mathbf{v}_{ij}^{\top}  \mathbf{T}^{\top} \mathbf{h}  + \mathbf{v}_{ij}^{\top}  \mathbf{T}^{\top} \mathbf{T} \mathbf{v}_{ij} } + (\mathbf{v}_{ij} - \boldsymbol{\mu}_{ij})^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} (\mathbf{v}_{ij} - \boldsymbol{\mu}_{ij})
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \mathbf{h}^{\top} \mathbf{T} \mathbf{v}_{ij}  + \mathbf{v}_{ij}^{\top}  \mathbf{T}^{\top} \mathbf{h}  + \mathbf{v}_{ij}^{\top}  \mathbf{T}^{\top} \mathbf{T} \mathbf{v}_{ij} + \textcolor{blue}{ (\mathbf{v}_{ij} - \boldsymbol{\mu}_{ij})^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} (\mathbf{v}_{ij} - \boldsymbol{\mu}_{ij})} \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \mathbf{h}^{\top} \mathbf{T} \mathbf{v}_{ij}  + \mathbf{v}_{ij}^{\top}  \mathbf{T}^{\top} \mathbf{h}  + \mathbf{v}_{ij}^{\top}  \mathbf{T}^{\top} \mathbf{T} \mathbf{v}_{ij} + \textcolor{blue}{ \mathbf{v}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \mathbf{v}_{ij} } \textcolor{blue}{ + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{v}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} + \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \mathbf{v}_{ij}}
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \textcolor{brown}{\mathbf{h}^{\top} \mathbf{T} \mathbf{v}_{ij}} + \textcolor{lightsalmon}{\mathbf{v}_{ij}^{\top} \mathbf{T}^{\top} \mathbf{h}} + \textcolor{magenta}{ \mathbf{v}_{ij}^{\top}  \mathbf{T}^{\top} \mathbf{T} \mathbf{v}_{ij} + \mathbf{v}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \mathbf{v}_{ij} } + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} + \textcolor{lightsalmon}{\mathbf{v}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}} + \textcolor{brown}{\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \mathbf{v}_{ij}} \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} + \textcolor{magenta}{ \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} } + \textcolor{lightsalmon}{\mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )  } +  \textcolor{brown}{( \mathbf{h}^{\top} \mathbf{T} + \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}) \mathbf{v}_{ij}} 
+\end{eqnarray*} 
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{v}_{ij}^{\top}  ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) + ( \mathbf{h}^{\top} \mathbf{T} + \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}) \mathbf{v}_{ij} \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} + \mathbf{v}_{ij}^{\top} \textcolor{seagreen}{( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} } (\mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \\
+&& + ( \mathbf{h}^{\top} \mathbf{T} + \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}) \textcolor{red}{( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )} \mathbf{v}_{ij} 
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \textcolor{purple}{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} } (\mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \\
+&& + ( \mathbf{h}^{\top} \mathbf{T} + \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}) \textcolor{blue}{( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1}} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \textcolor{purple}{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} } ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \\
+&& + ( \mathbf{h}^{\top} \mathbf{T} + \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}) \textcolor{blue}{( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top}} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} 
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \textcolor{kaustgreen}{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) } \\
+&& + \textcolor{lightsalmon}{( \mathbf{h}^{\top} \mathbf{T} + \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}) ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top}} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \textcolor{kaustgreen}{\{ (\mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} \}^{\top}} \\
+&& + \textcolor{lightsalmon}{\{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{h}^{\top} \mathbf{T} + \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1})^{\top} \}^{\top}} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} 
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ( \mathbf{v}_{ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \{ (\mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} \}^{\top} \\
+&& + \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{h}^{\top} \mathbf{T} + \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1})^{\top} \}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \{ (\mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} \}^{\top} \\
+&& + \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{h}^{\top} \mathbf{T} + \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1})^{\top} \}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} \\
+&& \textcolor{red}{+ ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top}   ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top}     ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )} \\
+&& \textcolor{red}{- ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top}  ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )}
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \{ ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} \}^{\top} \\
+&& + \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{h}^{\top} \mathbf{T} + \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1})^{\top} \}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} \\
+&& + \textcolor{blue}{( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} } ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \\
+&&- ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top}  ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \{ ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} \}^{\top} \\
+&& + \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{h}^{\top} \mathbf{T} + \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1})^{\top} \}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} \\
+&& + \textcolor{blue}{\{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1}  ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \}^{\top}}    ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \\
+&&- ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top}   ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top}  ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \{ ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} \}^{\top} \\
+&& + \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{h}^{\top} \mathbf{T} + \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1})^{\top} \}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} \\
+&& + \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1}  ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \}^{\top} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \\
+&&- ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} + \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \{ ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1}  \}^{\top} \\
+&& + \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{h}^{\top} \mathbf{T} + \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{\top} \}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} \\
+&& + \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1}  ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \}^{\top} \textcolor{kaustorange}{( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1}} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \\
+&&- ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} + \textcolor{kaustgreen}{ \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij}} \textcolor{kaustgreen}{+ \mathbf{v}_{ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \{ ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} \}^{\top} } \\
+&&  \textcolor{kaustgreen}{+ \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{h}^{\top} \mathbf{T} + \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1})^{\top} \}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \mathbf{v}_{ij} } \\
+&&  \textcolor{kaustgreen}{ + \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1}  ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \}^{\top} } \textcolor{kaustgreen}{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) } \\
+&&- ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top}  ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top}  ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} \\
+&& + \textcolor{kaustgreen}{ \{ \mathbf{v}_{ij} + ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1}  ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )  \}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )  }\textcolor{kaustgreen}{ \{ \mathbf{v}_{ij} + ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1}  ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \} } \\
+&&- ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} \\
+&& +  \{ \mathbf{v}_{ij} + ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )  \}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \{ \mathbf{v}_{ij} + ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \} \\
+&& \textcolor{magenta}{- ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} }  ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} \\
+&& + \{ \mathbf{v}_{ij} + ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )  \{ \mathbf{v}_{ij} + ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1}  ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )  \} \\
+&& \textcolor{magenta}{- \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \}^{\top}}   ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} \\
+&& + \{ \mathbf{v}_{ij} + ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \{ \mathbf{v}_{ij} + ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \} \\
+&& - \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \}^{\top} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} \\
+&& +  \{ \mathbf{v}_{ij} + ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1}  ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \{ \mathbf{v}_{ij} + ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1}  ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \} \\
+&& - \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \}^{\top}\textcolor{brown}{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1}} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )
+\end{eqnarray*}
+
+Let $\boldsymbol{\xi} = \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \}$.
+
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} \\
+&& \textcolor{purple}{  +  \{ \mathbf{v}_{ij} + ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )  \}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) }\textcolor{purple}{ \{ \mathbf{v}_{ij} + ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1}  ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \} } \\
+&&\textcolor{purple}{  - \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \}^{\top}} \textcolor{purple}{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) } \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} + \textcolor{purple}{ ( \mathbf{v}_{ij} + \boldsymbol{\xi} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) ( \mathbf{v}_{ij} + \boldsymbol{\xi} ) }\textcolor{purple}{ - \boldsymbol{\xi}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \boldsymbol{\xi}}
+\end{eqnarray*}
+
+Taking the exponentials
+\begin{eqnarray*}
+& \Rightarrow & \int_{\mathbb{R}^d} \exp \{ - \mathbf{h}^{\top} \mathbf{h} - \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} - ( \mathbf{v}_{ij} + \boldsymbol{\xi} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) ( \mathbf{v}_{ij} + \boldsymbol{\xi} ) + \boldsymbol{\xi}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \boldsymbol{\xi} \} \dd \mathbf{v} \\
+& = & \exp \{ - \mathbf{h}^{\top} \mathbf{h} - \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}  + \boldsymbol{\xi}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \boldsymbol{\xi} \} \int_{\mathbb{R}^d}  \exp \{- ( \mathbf{v}_{ij} + \boldsymbol{\xi} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) ( \mathbf{v}_{ij} + \boldsymbol{\xi} ) \} \dd \mathbf{v}
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \exp \{ - \mathbf{h}^{\top} \mathbf{h} - \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}  + \boldsymbol{\xi}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \boldsymbol{\xi} \} \int_{\mathbb{R}^d}  \exp \{ - ( \mathbf{v}_{ij} + \boldsymbol{\xi} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) ( \mathbf{v}_{ij} + \boldsymbol{\xi} ) \} \dd \mathbf{v} \\ 
+& = & \exp \{ - \mathbf{h}^{\top} \mathbf{h} - \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}  + \boldsymbol{\xi}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \boldsymbol{\xi} \} \textcolor{kaustorange}{ \frac{(2 \pi)^{d / 2}}{(2 \pi)^{d / 2}}} \textcolor{kaustorange}{ \frac{| 2 ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) |^{1/2} }{| 2 ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) |^{1/2}} } \int_{\mathbb{R}^d}  \exp \{ -  \textcolor{kaustorange}{ \frac{1}{2}} ( \mathbf{v}_{ij} + \boldsymbol{\xi} )^{\top} \textcolor{kaustorange}{2} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) ( \mathbf{v}_{ij} + \boldsymbol{\xi} ) \} \dd \mathbf{v} \\
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \exp \{ - \mathbf{h}^{\top} \mathbf{h} - \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}  + \boldsymbol{\xi}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \boldsymbol{\xi} \} \frac{(2 \pi)^{d / 2}}{\textcolor{kaustgreen}{(2 \pi)^{d / 2}}} \frac{\textcolor{kaustgreen}{ | 2 ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) |^{1/2} }}{| 2 ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) |^{1/2}} \textcolor{kaustgreen}{ \int_{\mathbb{R}^d}  \exp \{- \frac{1}{2} ( \mathbf{v}_{ij} + \boldsymbol{\xi} )^{\top} 2 ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) ( \mathbf{v}_{ij} + \boldsymbol{\xi} ) \} \dd \mathbf{v}} \\
+& = & \exp \{ - \mathbf{h}^{\top} \mathbf{h} - \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}  + \boldsymbol{\xi}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \boldsymbol{\xi} \} \frac{ (2 \pi)^{d / 2} }{| 2 ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) |^{1/2}} \times \textcolor{kaustgreen}{ 1 } \quad  \quad  \quad   \quad  (***)
+\end{eqnarray*}
+
+Working on the exponents of the exponential,
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}  - \textcolor{red}{ \boldsymbol{\xi}^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \boldsymbol{\xi}} \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} \textcolor{red}{  - \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \}^{\top}} \textcolor{red}{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )} 
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} \textcolor{blue}{  - \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \}^{\top}} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} \textcolor{blue}{ - ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top}} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} - ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{- \top} \textcolor{brown}{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} } ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} - ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} \textcolor{magenta}{- ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} ( \mathbf{T}^{\top} \mathbf{h} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) } \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}  \textcolor{magenta}{ - \mathbf{h}^{\top} \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} \mathbf{T}^{\top} \mathbf{h} } \\
+&&  \textcolor{magenta}{ - \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top}  \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} \mathbf{T}^{\top} \mathbf{h} } \textcolor{magenta}{ -  \mathbf{h}^{\top} \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}  } \textcolor{magenta}{ -  \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top}  \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-\top}  ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}  } 
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}  -  \mathbf{h}^{\top} \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} \mathbf{T}^{\top} \mathbf{h} \\
+&& - \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top}  \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} \mathbf{T}^{\top} \mathbf{h} -  \mathbf{h}^{\top} \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} \textcolor{kaustorange}{\boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}  -  \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top}  \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-\top}  ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}  \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} -  \mathbf{h}^{\top} \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} \mathbf{T}^{\top} \mathbf{h} \\
+&& - \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top}  \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-\top} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} \mathbf{T}^{\top} \mathbf{h} -  \mathbf{h}^{\top} \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} \textcolor{kaustorange}{\boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-\top}} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} -  \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top}  \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-\top}  ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} 
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} -  \mathbf{h}^{\top} \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} \mathbf{T}^{\top} \mathbf{h} \\
+&& - \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top}  \textcolor{gold}{  \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-\top}  ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} } \mathbf{T}^{\top} \mathbf{h}  -  \mathbf{h}^{\top} \mathbf{T} \textcolor{kaustgreen}{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-\top}} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}  -  \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \textcolor{lightblue}{  \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-\top}  ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} } \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}  -  \mathbf{h}^{\top} \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} \mathbf{T}^{\top} \mathbf{h} \\
+&& - \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top}   \textcolor{gold}{ \{ \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \}^{-\top}} \mathbf{T}^{\top} \mathbf{h} -  \mathbf{h}^{\top} \mathbf{T} \textcolor{kaustgreen}{ \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} \}^{-\top}} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}  -  \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \textcolor{lightblue}{ \{ \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \}^{-\top}} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} 
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} -  \mathbf{h}^{\top} \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} \mathbf{T}^{\top} \mathbf{h} \\
+&& - \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top}  \textcolor{purple2}{ \{ \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \}^{-\top}} \mathbf{T}^{\top} \mathbf{h} -  \mathbf{h}^{\top} \mathbf{T} \textcolor{red}{ \{ ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} \}^{-\top}} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}  -  \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \textcolor{olive}{ \{ \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) \}^{-\top}} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} -  \mathbf{h}^{\top} \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top} \mathbf{T}^{\top} \mathbf{h} \\
+&& - \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top}  \textcolor{purple2}{ \{ ( \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} \mathbf{T}^{\top} \mathbf{T} + \mathbf{I}_{2d} ) \}^{-\top}} \mathbf{T}^{\top} \mathbf{h} -  \mathbf{h}^{\top} \mathbf{T} \textcolor{red}{ \{ ( \mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{I}_{2d} ) \}^{-\top}} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} -  \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \textcolor{olive}{ \{ ( \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} \mathbf{T}^{\top} \mathbf{T} + \mathbf{I}_{2d} ) \}^{-\top}} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} 
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} -  \mathbf{h}^{\top} \mathbf{T}  \textcolor{kaustgreen}{( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-\top}} \mathbf{T}^{\top} \mathbf{h} \\
+&& - \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top}  \textcolor{kaustgreen}{ \{ ( \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} \mathbf{T}^{\top} \mathbf{T} + \mathbf{I}_{2d} ) \}^{-\top}} \mathbf{T}^{\top} \mathbf{h} -  \mathbf{h}^{\top} \mathbf{T} \textcolor{kaustgreen}{ \{ ( \mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{I}_{2d} ) \}^{-\top}} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} -  \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \textcolor{kaustgreen}{ \{ ( \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} \mathbf{T}^{\top} \mathbf{T} + \mathbf{I}_{2d} ) \}^{-\top}} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} \\
+& = & \mathbf{h}^{\top} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} -  \mathbf{h}^{\top} \mathbf{T}  \textcolor{kaustgreen}{( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1}} \mathbf{T}^{\top} \mathbf{h} \\
+&& - \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top}  \textcolor{kaustgreen}{ \{ ( \mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{I}_{2d} ) \}^{-1}} \mathbf{T}^{\top} \mathbf{h} -  \mathbf{h}^{\top} \mathbf{T} \textcolor{kaustgreen}{ \{ ( \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} \mathbf{T}^{\top} \mathbf{T}  + \mathbf{I}_{2d} ) \}^{-1}} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} -  \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} \textcolor{kaustgreen}{ \{ ( \mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}  + \mathbf{I}_{2d} ) \}^{-1}} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} 
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \textcolor{barbiepink}{ \mathbf{h}^{\top} \mathbf{h} } + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} \textcolor{barbiepink}{ - \mathbf{h}^{\top} \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} \mathbf{T}^{\top} \mathbf{h} } \\
+&& - \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{I}_{2d} )^{-1} \mathbf{T}^{\top} \mathbf{h} -  \mathbf{h}^{\top} \mathbf{T} ( \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} \mathbf{T}^{\top} \mathbf{T}  + \mathbf{I}_{2d} )^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} -  \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}  + \mathbf{I}_{2d} )^{-1} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} \\
+& = & \textcolor{barbiepink}{ \mathbf{h}^{\top} \{ \mathbf{I}_d + \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} \mathbf{T}^{\top} \} \mathbf{h}} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} - \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{I}_{2d} )^{-1} \mathbf{T}^{\top} \mathbf{h}  \\
+& & -  \mathbf{h}^{\top} \mathbf{T} ( \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} \mathbf{T}^{\top} \mathbf{T}  + \mathbf{I}_{2d} )^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}  -  \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}  + \mathbf{I}_{2d} )^{-1} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \mathbf{h}^{\top} \{ \mathbf{I}_d + \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} \mathbf{T}^{\top} \} \mathbf{h} + \boldsymbol{\mu}_{ij}^{\top} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} - \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} + \mathbf{I}_{2d} )^{-1} \mathbf{T}^{\top} \mathbf{h}  \\
+& & -  \mathbf{h}^{\top} \mathbf{T} ( \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} \mathbf{T}^{\top} \mathbf{T}  + \mathbf{I}_{2d} )^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} -  \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij}^{\top} ( \mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}  + \mathbf{I}_{2d} )^{-1} \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} \boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} \\
+& = & ( \mathbf{h} -  \mathbf{T}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top} \{ \mathbf{I}_d + \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} \mathbf{T}^{\top} \} ( \mathbf{h} -  \mathbf{T}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) \quad (**)
+\end{eqnarray*}
+
+Combining (**), (***), and other terms in $\text{E}_{\mathbf{V}} \left\{ C^S( \mathbf{h} - \mathbf{V}u ) \right\}$, i.e.,
+\begin{eqnarray*}
+& & \text{E}_{\mathbf{V}} \left\{ C^S( \mathbf{h} - \mathbf{V}u ) \right\} \\
+& = & \frac{1}{(2 \pi)^d | \textcolor{brown}{\boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}} |^{1/2}} \textcolor{red}{(***)} \exp\left\{ - \textcolor{blue}{(**)} \right\} \\
+& = & \frac{1}{(2 \pi)^d | \textcolor{brown}{\boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}} |^{1/2}} \textcolor{red}{ \frac{ (2 \pi)^{d / 2} }{| 2 ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} ) |^{1/2}}} \exp[ - \textcolor{blue}{( \mathbf{h} -  \mathbf{T}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top}  \{ \mathbf{I}_d + \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} \mathbf{T}^{\top} \} ( \mathbf{h} -  \mathbf{T}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )} ] \\
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+\begin{eqnarray*}
+& \Rightarrow & \frac{1}{\textcolor{barbiepink}{(2 \pi)^d}  \textcolor{kaustgreen}{|\boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}|^{1/2}}}  \frac{ \textcolor{barbiepink}{(2 \pi)^{d / 2} }}{\textcolor{kaustgreen}{ | 2 ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1})|^{1/2}}} \exp [ - ( \mathbf{h} -  \mathbf{T}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top}  \{ \mathbf{I}_d + \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} \mathbf{T}^{\top} \} ( \mathbf{h} -  \mathbf{T}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) ] \\
+& = & \frac{ \textcolor{barbiepink}{1}}{\textcolor{kaustgreen}{{ | \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij} \mathbf{T}^{\top} \mathbf{T} +  \mathbf{I}_{2 d} |^{1/2}}}} \exp [ - ( \mathbf{h} -  \mathbf{T}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} )^{\top}  \{ \mathbf{I}_d + \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij}^{-1} )^{-1} \mathbf{T}^{\top} \} ( \mathbf{h} -  \mathbf{T}\boldsymbol{\mu}_{\boldsymbol{\mathcal{V}}, ij} ) ]
+\end{eqnarray*}
+%----------------------------------------------------------------------------------------------------------------------------------------------------------------------------%
+Note that the expression
+\begin{eqnarray*}
+( \mathbf{T} \boldsymbol{\mu} )^{\top} [ \mathbf{I}_d + \mathbf{T} \{ \mathbf{T}^{\top} \mathbf{T} + ( \boldsymbol{\Sigma}_{\boldsymbol{\mathcal{V}}, ij})^{-1} \}^{-1} \mathbf{T}^{\top} ] ( \mathbf{T}  \boldsymbol{\mu} )
+ & = & \boldsymbol{\mu}^{\top} \{ \mathbf{T}^{\top} \mathbf{T} - \mathbf{T}^{\top} \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}^{-1} )^{-1} \mathbf{T}^{\top} \mathbf{T} \}  \boldsymbol{\mu} \\
+& = & \boldsymbol{\mu}^{\top} [ \mathbf{T}^{\top} \mathbf{T} - \mathbf{T}^{\top} \mathbf{T} \{ (\mathbf{T}^{\top} \mathbf{T})^{-1} \mathbf{T}^{\top} \mathbf{T} + (\mathbf{T}^{\top} \mathbf{T})^{-1} \boldsymbol{\Sigma}^{-1} \}^{-1} ]  \boldsymbol{\mu} \\
+& = & \boldsymbol{\mu}^{\top} [ \mathbf{T}^{\top} \mathbf{T} - \mathbf{T}^{\top} \mathbf{T} \{ \mathbf{I}_{2 d} + (\boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T} )^{-1} \}^{-1} ] \boldsymbol{\mu} \\
+& = & \boldsymbol{\mu}^{\top} \{ \mathbf{T}^{\top} \mathbf{T} - \mathbf{T}^{\top} \mathbf{T} \textcolor{red}{( \boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T} + \mathbf{I}_{2 d} )^{-1}} \boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T} \} \boldsymbol{\mu} \\
+& = & \boldsymbol{\mu}^{\top} [ \mathbf{T}^{\top} \mathbf{T} - \mathbf{T}^{\top} \mathbf{T} \textcolor{red}{\{ (\boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T})^{-1} - (\boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T})^{-1} ( \boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T} + \mathbf{I}_{2 d} )^{-1} \}} \boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T} ] \boldsymbol{\mu} \\
+& = & \boldsymbol{\mu}^{\top} [ \textcolor{kaustorange}{\mathbf{T}^{\top} \mathbf{T} - \mathbf{T}^{\top} \mathbf{T} (\boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T})^{-1} \boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T}} + \mathbf{T}^{\top} \mathbf{T} (\boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T})^{-1} ( \boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T} + \mathbf{I}_{2 d} )^{-1} \boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T} ] \boldsymbol{\mu} \\
+& = & \boldsymbol{\mu}^{\top} \{ \mathbf{T}^{\top} \mathbf{T} (\boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T})^{-1} ( \boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T} + \mathbf{I}_{2 d} )^{-1} \boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T} \} \boldsymbol{\mu} \\
+& = & \boldsymbol{\mu}^{\top} [ \mathbf{T}^{\top} \mathbf{T} (\boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T})^{-1} \{ \mathbf{I}_{2 d} + (\boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T})^{-1} \}^{-1} ] \boldsymbol{\mu} \\
+& = & \boldsymbol{\mu}^{\top} \{ \mathbf{T}^{\top} \mathbf{T} ( \boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T} + \mathbf{I}_{2 d} )^{-1} \} \boldsymbol{\mu},
+\end{eqnarray*}
+where we used the Sherman Woodbury matrix inverse formula, is equal to the expression
+\begin{eqnarray*}
+\boldsymbol{\mu}^{\top} \{ \textcolor{red}{(\mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma}  + \mathbf{I}_{2 d} )^{-1}}  \boldsymbol{\Sigma}^{-1} - \boldsymbol{\Sigma}^{-1} \}  \boldsymbol{\mu} & = & \boldsymbol{\mu}^{\top} [ \textcolor{red}{\{  \mathbf{I}_{2 d} -  \mathbf{I}_{2 d} (\mathbf{T}^{\top} \mathbf{T}) \boldsymbol{\Sigma} (\mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma}  + \mathbf{I}_{2 d} )^{-1} \} }  \boldsymbol{\Sigma}^{-1} - \boldsymbol{\Sigma}^{-1} ]  \boldsymbol{\mu} \\
+& = & \boldsymbol{\mu}^{\top} \{ - \mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma} (\mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma}  + \mathbf{I}_{2 d} )^{-1}  \boldsymbol{\Sigma}^{-1} \} \boldsymbol{\mu} \\
+& = & \boldsymbol{\mu}^{\top} \{ - \mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma} (\boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma}  + \boldsymbol{\Sigma} )^{-1} \} \boldsymbol{\mu} \\
+& = & \boldsymbol{\mu}^{\top} \{ - \mathbf{T}^{\top} \mathbf{T}  (\boldsymbol{\Sigma} \mathbf{T}^{\top} \mathbf{T} +  \mathbf{I}_{2 d} )^{-1} \} \boldsymbol{\mu}.
+\end{eqnarray*}
+Also
+\begin{eqnarray*}
+ (\mathbf{T} \boldsymbol{\mu} )^{\top} \{ \mathbf{I}_d + \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}^{-1} )^{-1} \mathbf{T}^{\top} \} \mathbf{h} 
+& = & \boldsymbol{\mu} ^{\top} \mathbf{T}^{\top} \{\mathbf{I}_d + \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}^{-1} )^{-1} \mathbf{T}^{\top} \} \mathbf{h} \\
+& = & \boldsymbol{\mu} ^{\top} \mathbf{T}^{\top} \mathbf{h}  -  \boldsymbol{\mu} ^{\top} \mathbf{T}^{\top} \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}^{-1} )^{-1} \mathbf{T}^{\top} \mathbf{h} \\
+&=& \boldsymbol{\mu} ^{\top} \{ \mathbf{I}_{2 d} - \mathbf{T}^{\top} \mathbf{T} ( \mathbf{T}^{\top} \mathbf{T} + \boldsymbol{\Sigma}^{-1} )^{-1} \} \mathbf{T}^{\top} \mathbf{h} \\
+&=& \boldsymbol{\mu} ^{\top} [ \mathbf{I}_{2 d} - \{ \mathbf{I}_{2 d} + (\mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma})^{-1} \}^{-1} ]  \mathbf{T}^{\top} \mathbf{h}  \\
+&=& \boldsymbol{\mu} ^{\top} ( \mathbf{I}_{2 d} - [ \mathbf{I}_{2 d} - (\mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma})^{-1}  \{ \mathbf{I}_{2 d} + (\mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma})^{-1} \}^{-1}] )  \mathbf{T}^{\top} \mathbf{h}  \\
+&=& \boldsymbol{\mu} ^{\top} [ \mathbf{I}_{2 d} - \mathbf{I}_{2 d} + (\mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma})^{-1}  \{ \mathbf{I}_{2 d} + (\mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma})^{-1} \}^{-1} ]  \mathbf{T}^{\top} \mathbf{h}  \\
+&=& \boldsymbol{\mu} ^{\top} (\mathbf{T}^{\top} \mathbf{T} \boldsymbol{\Sigma} + \mathbf{I}_{2 d} )^{-1}   \mathbf{T}^{\top} \mathbf{h} 
+\end{eqnarray*}
+
+\endgroup
+
+\section{Estimation}
+
+%In this section, we show that the parameters of Lagrangian spatio-temporal cross-covariance functions can be recovered using multi-step MLE. The simulation study mimics the conditions found in the analysis of the bivariate PM dataset in Saudi Arabia as detailed in Section 5 of the paper. The true parameter values are set to be close to the estimated values in Table 1 of the paper. We simulate 100 times from each models (M1, M2, and M3) and fit each model to its corresponding simulated dataset. From Figure~\ref{fig:wls_spatial}, we can see that the median values of the parameter estimates are very close to the true values of the parameters. Hence, we use multi-step WLS as our estimation method.
+
+
+\subsection{Universal Kriging}
+
+Throughout this work, we assume the following model for our spatio-temporal processes:
+\begin{equation} \label{eqn:linear_model}
+\mathbf{Y}(\mathbf{s},t) = \boldsymbol{\mu}(\mathbf{s}, t) + \mathbf{Z}(\mathbf{s},t),\quad (\mathbf{s},t)\in \mathbb{R}^d\times \mathbb{R},
+\end{equation}
+where $\boldsymbol{\mu}(\mathbf{s}, t)$ is the vector-valued spatio-temporal mean of multivariate random field that may be spatially varying and $\mathbf{Z}(\mathbf{s},t)$ is a zero mean multivariate second-order stationary spatio-temporal random field. Assume that the mean function in (\ref{eqn:linear_model}) can be characterized as a linear combination of some covariates $X_1, X_2, \ldots, X_M$. Denote by $\boldsymbol{\beta} = (\boldsymbol{\beta}_1^{\top}, \ldots, \boldsymbol{\beta}_p^{\top})^{\top} \in \mathbb{R}^{Mp}$ the vector of mean parameters, where $\boldsymbol{\beta}_i = (\beta_{1, i}, \ldots, \beta_{M, i})^{\top} \in \mathbb{R}^{M}$, for $i = 1, \ldots, p$, and $\mathbf{X} = \left\{ \mathbf{I}_p \otimes  \mathbf{X}(\mathbf{s}_1, t_1)^{\top}, \mathbf{I}_p \otimes \mathbf{X}(\mathbf{s}_2, t_2)^{\top}, \ldots, \mathbf{I}_p \otimes \mathbf{X}(\mathbf{s}_n, t_n)^{\top} \right\}^{\top} \in \mathbb{R}^{np\times  Mp}$, where $\mathbf{X}(\mathbf{s}, t) = \left\{X_1(\mathbf{s}, t), \ldots, X_M(\mathbf{s}, t) \right\}  \in \mathbb{R}^{M}$. The model in (\ref{eqn:linear_model}) becomes $\mathbf{Y}(\mathbf{s}, t) = \left\{  \mathbf{I}_p \otimes \mathbf{X}(\mathbf{s}, t)^{\top} \right\} \boldsymbol{\beta} + \mathbf{Z}(\mathbf{s},t). $ 
+The universal cokriging predictor $\hat{\mathbf{Z}}(\mathbf{s}_0, t_0)$ of $\mathbf{Z}(\mathbf{s}, t)$ at unsampled spatio-temporal location $(\mathbf{s}_0, t_0)$ is 
+\begin{equation*}
+\hat{\mathbf{Y}}(\mathbf{s}_0, t_0) = \big[ \mathbf{c} + \mathbf{X} \{ \mathbf{X}^{\top} \boldsymbol{\Sigma}(\hat{\boldsymbol{\Theta}})^{-1} \mathbf{X} \}^{-1} \{ \mathbf{I}_p \otimes \mathbf{X}(\mathbf{s}_0, t_0)^{\top} -  \mathbf{X}^{\top} \boldsymbol{\Sigma}(\hat{\boldsymbol{\Theta}})^{-1} \mathbf{c} \} \big]^{\top} \boldsymbol{\Sigma}^{-1} \mathbf{Y},
+\end{equation*}
+where $\mathbf{c} =  ( \big[ \big\{ C_{ij} (\mathbf{s}_{l} - \mathbf{s}_{0}, t_{l}, t_{0}; \hat{\boldsymbol{\Theta}}) \big\}_{i,j = 1}^{2} \big]_{l= 1}^{n} )^{\top} \in \mathbb{R}^{np \times p}$. The corresponding cokriging variance is 
+\begin{multline*}
+\text{var} \{\hat{\mathbf{Y}}(\mathbf{s}_0, t_0) \}  = \text{trace}[\mathbf{C}(\mathbf{0}, 0; \hat{\boldsymbol{\Theta}}) - \mathbf{c}^{\top} \boldsymbol{\Sigma}(\hat{\boldsymbol{\Theta}})^{-1} \mathbf{c} \\
++ \{ \mathbf{I}_p \otimes \mathbf{X}(\mathbf{s}_0, t_0)^{\top} - \mathbf{X}^{\top} \boldsymbol{\Sigma}(\hat{\boldsymbol{\Theta}})^{-1}  \mathbf{c} \}^{\top} \{ \mathbf{X}^{\top} \boldsymbol{\Sigma}(\hat{\boldsymbol{\Theta}})^{-1} \mathbf{X} \}^{-1} \{ \mathbf{I}_p \otimes \mathbf{X}(\mathbf{s}_0, t_0)^{\top} - \mathbf{X}^{\top} \boldsymbol{\Sigma}(\hat{\boldsymbol{\Theta}})^{-1}  \mathbf{c} \} ],
+\end{multline*}
+
+
+
+\begin{figure}[h]
+ \centering
+	\includegraphics[scale=0.45]{Figures/multistep-MLE}
+	\caption{Boxplots of standardized estimated parameters of via multi-step MLE.}
+    \label{fig:param-est}
+\end{figure}
+
+
+\section{Application}
+
+\subsection{Timeseries Plots}
+
+\begin{figure}[h]
+ \centering
+	\includegraphics[scale=0.3]{Figures/timeseries.pdf}
+	\caption{Timeseries plots of PM concentrations on January 18, 2019, 9:00 to 21:00, at 880 hPa (red) and 925 hPa (blue), in log scale of $\mu g / m^3$.}
+    \label{fig:timeseries_plots}
+\end{figure}
+
+\subsection{Testing for Stationarity of Spatio-Temporal Data}
+
+Since the data has a very short timeseries, we only test for stationarity in the spatial domain. Using the testing method in \cite{jun2012test}, we test the second-order stationarity of the residuals obtained using the generalized least squares regression with covariates, namely, relative humidity and temperature. The testing method requires the computation of the empirical spatial marginal and cross-covariances of two disjoint spatial domains. We perform the test two times. First, we divide Saudi Arabia vertically, i.e. $[35, 45] \times [17, 32]$ and $[45, 55] \times [17, 32]$, and test whether there is enough evidence to reject the assumption that the empirical spatial marginal and cross-covariances in the West and East of Saudi Arabia are the same. Next, we divide Saudi Arabia horizontally, i.e. $[35, 55] \times [17, 24.5]$ and $[35, 55] \times [24.5, 32]$, and perform the test. 
+
+We choose the following spatial lags at which we compute the p-values: 
+\begin{eqnarray*}
+\Lambda_1 & = & \{ \mathbf{h} = (0, 2), (2, 0), (2, 2)\}, \\
+\Lambda_2 & = & \{ \mathbf{h} = (0, 2), (2, 0), (2, 2), (0, 4), (4, 0), (4, 4)\}, \\
+\Lambda_3 & = & \{ \mathbf{h} = (0, 2), (2, 0), (2, 2), (0, 4), (4, 0), (4, 4), (0, 6), (6, 0), (6, 6) \}
+\end{eqnarray*}
+in $\times 10^2$ km. Tables~\ref{tab:p-values} and \ref{tab:p-values2} present the p-values from the test for stationarity with the empirical marginal and cross-covariances calculated using spatial lag $\mathbf{h}$ or anisotropy-corrected spatial lag $\mathbf{Rh}$. From the p-values, it can be seen that we need to reject the stationarity assumption using a significance level of $\alpha = 0.05$. Using the anisotropy corrected spatial lags, however, generally results to a failure in rejecting the stationarity assumption using a significance level of $\alpha = 0.05$
+
+\begin{table*}[h] %htb
+\centering
+\captionof{table}{P-values from the test for several combinations of spatial lags when dividing Saudi Arabia vertically and computing for the empirical $C_{11}$, $C_{22}$, and $C_{12}$.}
+\scalebox{0.9}{
+\begin{tabular}{ccccccccccc}
+    \toprule
+    \multirow{2}{*}{} &
+      \multicolumn{3}{c}{$C_{11}$}  &
+      \multicolumn{3}{c}{$C_{22}$}  & \multicolumn{3}{c}{$C_{12}$}   \\
+     &  $\Lambda_1$ & $\Lambda_2$ & $\Lambda_3$ & $\Lambda_1$ & $\Lambda_2$ & $\Lambda_3$ & $\Lambda_1$ & $\Lambda_2$ & $\Lambda_3$ \\
+    \cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10} 
+    $\mathbf{h}$ &  0.6081 & 0.1339 & 0.0286 & 0.6204 & 0.0451& 0.0013 & 0.2636 & 0.0863 & 0.0136 \\
+    $\mathbf{Rh}$ &  0.9671 & 0.0881 & 0.0782 & 0.8838 & 0.0292 & 0.0348 & 0.9233 & 0.0928 & 0.0538 \\
+    \bottomrule
+  \end{tabular}
+  }
+  \label{tab:p-values}
+\end{table*}
+
+\begin{table*}[h] %htb
+\centering
+\captionof{table}{P-values from the test for several combinations of spatial lags when dividing Saudi Arabia horizontally and computing for the empirical $C_{11}$, $C_{22}$, and $C_{12}$. Note that $\Lambda_3$ cannot be properly computed when dividing Saudi Arabia horizontally.}
+\scalebox{0.9}{
+\begin{tabular}{ccccccccccc}
+    \toprule
+    \multirow{2}{*}{} &
+      \multicolumn{3}{c}{$C_{11}$}  &
+      \multicolumn{3}{c}{$C_{22}$}  & \multicolumn{3}{c}{$C_{12}$}   \\
+     &  $\Lambda_1$ & $\Lambda_2$ & $\Lambda_3$ & $\Lambda_1$ & $\Lambda_2$ & $\Lambda_3$ & $\Lambda_1$ & $\Lambda_2$ & $\Lambda_3$ \\
+    \cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10} 
+    $\mathbf{h}$ &  0.1102 & 0.2939 & - & 0.0147 & 0.0362 & - & 0.0481 & 0.1266 & - \\
+    $\mathbf{Rh}$ & 0.1433 & 0.2349 & - & 0.0364 & 0.0517 & - & 0.0840 & 0.1801 & - \\
+    \bottomrule
+  \end{tabular}
+  }
+  \label{tab:p-values2}
+\end{table*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ieeetr
+\baselineskip=20pt
+
+\bibliographystyle{apalike}
+\bibliography{main}
+\end{document}
+
+
+
