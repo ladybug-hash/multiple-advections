@@ -463,14 +463,6 @@ wind_var_M3 <- t(wind_var_chol) %*% wind_var_chol
 mu1_ms_M3 <- (mu1 * 100 / 3) * (0.2778)
 mu2_ms_M3 <- (mu2 * 100 / 3) * (0.2778) 
 
-mu1_ms_M4 <- mu1_ms_M3 - 0.05
-mu2_ms_M4 <- mu2_ms_M3 + 0.05
-wind_var_M4 <- wind_var_M3 + 0.5
-
-
-
-
-
 
 
 EMP <- unique(round(cbind(c(WIND_ARRAY[, 1, ]), c(WIND_ARRAY[, 2, ]), c(WIND_ARRAY[, 3, ]), c(WIND_ARRAY[, 4, ])), 0))
