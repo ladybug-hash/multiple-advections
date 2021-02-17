@@ -29,20 +29,21 @@ rho_val = as.numeric(args[3])
 
 config = as.numeric(args[2])
 
+k = as.numeric(args[4])
+
 cat(config, '\n')
 
 if(config == 1){
-	VAR_MAT_MARGIN <- 0.001 * matrix(c(1, 0, 0.9, 0, 0, 1, 0, 0.9, 0.9, 0, 1, 0, 0, 0.9, 0, 1), ncol = 4, nrow = 4, byrow = T)
+	VAR_MAT_MARGIN <- k * matrix(c(1, 0, 0.9, 0, 0, 1, 0, 0.9, 0.9, 0, 1, 0, 0, 0.9, 0, 1), ncol = 4, nrow = 4, byrow = T)
 }else if(config == 2){
-	VAR_MAT_MARGIN <- 0.001 * matrix(c(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1), ncol = 4, nrow = 4, byrow = T)
+	VAR_MAT_MARGIN <- k * matrix(c(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1), ncol = 4, nrow = 4, byrow = T)
 }else if(config == 3){
-	VAR_MAT_MARGIN <- 0.001 * matrix(c(1, 0, -0.9, 0, 0, 1, 0, -0.9, -0.9, 0, 1, 0, 0, -0.9, 0, 1), ncol = 4, nrow = 4, byrow = T)
+	VAR_MAT_MARGIN <- k * matrix(c(1, 0, -0.9, 0, 0, 1, 0, -0.9, -0.9, 0, 1, 0, 0, -0.9, 0, 1), ncol = 4, nrow = 4, byrow = T)
 }
 
 THETA_SPACE <- c(1, 1, 0.23, 0.5, 1, rho_val)
 MU1 <- c(0.1, 0.1)
 MU2 <- c(0.1, 0.1)
-
 
 cov1 <- nonfrozen_matern_cov_multi_advec_small_scale(theta = THETA_SPACE, wind_mu1 = MU1, wind_mu2 = MU2, wind_var1 = VAR_MAT_MARGIN[1:2, 1:2], wind_var2 = VAR_MAT_MARGIN[3:4, 3:4], wind_var12 = VAR_MAT_MARGIN[1:2, 3:4], max_time_lag = TT, LOCS = locs)	
 
@@ -65,7 +66,6 @@ R1 <- r1[, index_in]
 Z_rand_sample <- r1[, index_in]
 
 Z_out <- r1[, index_out]
-
 
 if(M2){
 
@@ -114,8 +114,8 @@ if(M2){
 		Z_rand_sample0[[ii]] <- Z_rand_sample0_temp
 	}
 
-	#init <- c(0, 0, log(0.05), 0, 0)
-	init <- log(THETA_SPACE[1:5])
+	init <- c(0, 0, log(0.05), 0, 0)
+	#init <- log(THETA_SPACE[1:5])
 
 	fit1 <- optim(par = init, fn = NEGLOGLIK_SPACE, control = list(trace = 5, maxit = 2000)) #
 
@@ -150,7 +150,8 @@ if(M2){
 
 	}
 
-	init <- c(THETA_SPACE[6], 0.1, 0.1, 0.3162278, 0, 0.3162278)
+	init <- c(0, 0.0001, 0.0001, 0.1, 0, 0.1)
+	#init <- c(rho_val, (MU1[1] + MU2[1]) / 2, (MU1[2] + MU2[2]) / 2, t(chol(VAR_MAT_MARGIN[1:2, 1:2]))[lower.tri(VAR_MAT_MARGIN[1:2, 1:2], diag = T)])
 
 	fit1 <- optim(par = init, fn = NEGLOGLIK_ST, control = list(trace = 5, maxit = 2000)) #
 
@@ -158,21 +159,9 @@ if(M2){
 
 	theta <- c(exp(p_space[1:5]), p[1])
 
-	#p <- init
-
-	#if(config == 1){	
-	#	theta <- c(exp(p_space[1:5]), -0.25)
-	#}else if(config == 2){
-        #        theta <- c(exp(p_space[1:5]), -0.1)
-        #}else if(config == 3){
-        #        theta <- c(exp(p_space[1:5]), 0)
-        #}
-
 	mu <- p[2:3]
 	wind_var_chol <- matrix(c(p[4], p[5], 0, p[6]), ncol = 2, byrow = T)
 	wind_var <- t(wind_var_chol) %*% wind_var_chol
-
-	wind_var <- VAR_MAT_MARGIN[1:2, 1:2]
 
 	Sigma <- nonfrozen_matern_cov_multi_small_scale(theta, wind_mu = mu, wind_var = wind_var, max_time_lag = TT, LOCS = locs)
 
@@ -188,13 +177,13 @@ if(M2){
 
 	pred_var <- sum(diag(t(C12_m) %*% solve(C11_m) %*% C12_m))
 
-	write.table(c(p_space, p, MSE, pred_var), file = paste(root, 'Results/multivariate_stationary_simulated_MSE_2_M3_config', config, '_set_', set, '_rho_', rho_val, sep = ''), sep = " ", row.names = FALSE, col.names = FALSE)
-
-	cat('DONE', '\n')
-
 	end_time = Sys.time()
 
-	cat("TIME for M3: ", end_time - start_time, '\n')
+	total_time <- as.numeric(end_time - start_time, units = "secs")
+
+	write.table(matrix(c("M2", set, config, THETA_SPACE, k, p_space, p, fit1$value, MSE, pred_var, total_time), nrow = 1), file = paste(root, 'Results/multivariate_stationary_simulation_study', sep = ''), sep = " ", row.names = FALSE, col.names = FALSE, append = TRUE, quote = FALSE)
+
+	cat('DONE. Saved in ', paste(root, 'Results/multivariate_stationary_simulation_study', sep = ''), '\n')
 
 }
 
@@ -245,8 +234,8 @@ if(M3){
 		Z_rand_sample0[[ii]] <- Z_rand_sample0_temp
 	}
 
-	#init <- c(0, 0, log(0.05), 0, 0)
-	init <- log(THETA_SPACE[1:5])
+	init <- c(0, 0, log(0.05), 0, 0)
+	#init <- log(THETA_SPACE[1:5])
 
 	fit1 <- optim(par = init, fn = NEGLOGLIK_SPACE, control = list(trace = 5, maxit = 2000)) #
 
@@ -281,8 +270,8 @@ if(M3){
 
 	}
 
-	init <- c(rho_val, MU1, MU2, t(chol(VAR_MAT_MARGIN))[lower.tri(VAR_MAT_MARGIN, diag = T)])
-	#init <- c(rho_val, 0.1, 0.1, 0.1, 0.1, 1, 0, 0.9, 0, 1, 0, 0.9, 0.4358899, 0, 0.4358899)
+	#init <- c(rho_val, MU1, MU2, t(chol(VAR_MAT_MARGIN))[lower.tri(VAR_MAT_MARGIN, diag = T)])
+	init <- c(rho_val, 0.1, 0.1, 0.1, 0.1, 1, 0, 0.9, 0, 1, 0, 0.9, 0.4358899, 0, 0.4358899)
 
 	fit1 <- optim(par = init, fn = NEGLOGLIK_ST, control = list(trace = 5, maxit = 2000)) #
 
@@ -314,7 +303,7 @@ if(M3){
 
 	total_time <- as.numeric(end_time - start_time, units = "secs")
 
-	write.table(matrix(c(set, config, THETA_SPACE, p_space, p, fit1$value, MSE, pred_var, total_time), nrow = 1), file = paste(root, 'Results/multivariate_stationary_simulation_study', sep = ''), sep = " ", row.names = FALSE, col.names = FALSE, append=TRUE)
+	write.table(matrix(c("M3", set, config, THETA_SPACE, k, p_space, p, fit1$value, MSE, pred_var, total_time), nrow = 1), file = paste(root, 'Results/multivariate_stationary_simulation_study', sep = ''), sep = " ", row.names = FALSE, col.names = FALSE, append = TRUE, quote = FALSE)
 
 	cat('DONE. Saved in ', paste(root, 'Results/multivariate_stationary_simulation_study', sep = ''), '\n')
 }
