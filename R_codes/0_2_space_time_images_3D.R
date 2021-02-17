@@ -1,16 +1,16 @@
 
 directory <- '/home/salvanmo/Desktop/'
 
-root <- paste(directory, 'Spatio-Temporal-Cross-Covariance-Functions-under-the-Lagrangian-Framework/', sep = '')
+root <- paste(directory, 'multiple-advections/', sep = '')
 
-source(file = paste(root, "Functions/load_packages.R",sep=''))
-source(file = paste(root, "Functions/auxiliary_functions.R",sep=''))
+source(file = paste(root, "R_codes/Functions/load_packages.R",sep=''))
+source(file = paste(root, "R_codes/Functions/auxiliary_functions.R",sep=''))
 
-yr <- 2019 #2010, 2016 is good
+yr <- 2019
 
-dat <- read.table(paste(root, 'Data/ncdf/layer1_' , yr, sep = ''), header = FALSE, sep = " ") %>% as.matrix()
-dat2 <- read.table(paste(root, 'Data/ncdf/layer2_' , yr, sep = ''), header = FALSE, sep = " ") %>% as.matrix()
-dat3 <- read.table(paste(root, 'Data/ncdf/LOCS-3D-dataset', sep = ''), header = FALSE, sep = " ") %>% as.matrix()
+dat <- read.table(paste(root, 'Data/layer1_' , yr, sep = ''), header = FALSE, sep = " ") %>% as.matrix()
+dat2 <- read.table(paste(root, 'Data/layer2_' , yr, sep = ''), header = FALSE, sep = " ") %>% as.matrix()
+dat3 <- read.table(paste(root, 'Data/LOCS-3D-dataset', sep = ''), header = FALSE, sep = " ") %>% as.matrix()
 
 dat[which(dat < -25)] <- -25
 dat2[which(dat2 < -25)] <- -25
@@ -23,14 +23,9 @@ for(start_hr in 139:139){
 
 	cat(start_hr, '\n')
 
-	dat2 <- dat2 #- matrix(colMeans(dat2), nrow = nrow(dat2), ncol = ncol(dat2), byrow = T) 
-	dat <- dat #- matrix(colMeans(dat), nrow = nrow(dat), ncol = ncol(dat), byrow = T) 
-
 	hr_index <- seq(start_hr, start_hr + 4, by = 1)
 
 	zlim_range1 <- zlim_range2 <- range(c(dat[hr_index, ], dat2[hr_index, ]))
-	#zlim_range1 <- range(dat[hr_index, ])
-	#zlim_range2 <- range(dat2[hr_index, ])
 
 	split.screen( rbind(c(0.08,0.95,0.1,0.95), c(0.95,0.99,0.1,0.95)))
 	split.screen( figs = c( 2, 5 ), screen = 1 )
