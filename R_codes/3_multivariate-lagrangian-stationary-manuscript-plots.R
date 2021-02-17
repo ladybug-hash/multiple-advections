@@ -8,10 +8,10 @@ root <- paste(directory, 'multiple-advections/', sep = '')
 source(file = paste(root, "R_codes/Functions/load_packages.R", sep = ''))
 source(file = paste(root, "R_codes/Functions/auxiliary_functions.R", sep = ''))
 
-fig1_newnew = T
-fig2_newnew = T
+fig1 = T
+fig2 = T
 
-if(fig1_newnew){
+if(fig1){
 
 	r1 <- read.table(paste(root, 'Data/multivariate_stationary_nonfrozen_realizations_matern_multiple_example1', sep = ''), header = FALSE, sep = " ") %>% as.matrix()
 	r2 <- read.table(paste(root, 'Data/multivariate_stationary_nonfrozen_realizations_matern_multiple_example2', sep = ''), header = FALSE, sep = " ") %>% as.matrix()
@@ -174,7 +174,7 @@ if(fig1_newnew){
 	  
 }
 
-if(fig2_newnew){
+if(fig2){
 
 	DAT1_cross <- read.table(paste(root, 'Data/multivariate_stationary_nonfrozen_crosscovariance_matern_multiple_example1', sep = ''), sep = " ", header = FALSE) %>% as.matrix()
 	DAT2_cross <- read.table(paste(root, 'Data/multivariate_stationary_nonfrozen_crosscovariance_matern_multiple_example2', sep = ''), sep = " ", header = FALSE) %>% as.matrix()
