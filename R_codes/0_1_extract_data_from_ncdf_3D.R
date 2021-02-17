@@ -1,9 +1,9 @@
 
 directory <- '/home/salvanmo/Desktop/'
 
-root <- paste(directory, 'Spatio-Temporal-Cross-Covariance-Functions-under-the-Lagrangian-Framework/', sep = '')
+root <- paste(directory, 'multiple-advections/', sep = '')
 
-source(file = paste(root, "Functions/load_packages.R",sep=''))
+source(file = paste(root, "R_codes/Functions/load_packages.R",sep=''))
 
 dname1 <- "BCPHILIC"
 
@@ -102,11 +102,11 @@ for(yr in 1980:2019){
 		data_array2 <- rbind(data_array2, data_temp)
 	}
 
-	data_array3 <- saudi_data_orig[1:N, 1:2]
-		
-	write.table(data_array1, file = paste(root, "Data/ncdf/layer1_", yr, sep = ''), sep = " ", row.names = FALSE, col.names = FALSE)
-	write.table(data_array2, file = paste(root, "Data/ncdf/layer2_", yr, sep = ''), sep = " ", row.names = FALSE, col.names = FALSE)
-	write.table(data_array3, file = paste(root, "Data/ncdf/LOCS-3D-dataset", sep = ''), sep = " ", row.names = FALSE, col.names = FALSE)
+	write.table(data_array1, file = paste(root, "Data/layer1_", yr, sep = ''), sep = " ", row.names = FALSE, col.names = FALSE)
+	write.table(data_array2, file = paste(root, "Data/layer2_", yr, sep = ''), sep = " ", row.names = FALSE, col.names = FALSE)
 
 }
+
+data_array3 <- saudi_data_orig[1:N, 1:2]
+write.table(data_array3, file = paste(root, "Data/LOCS-3D-dataset", sep = ''), sep = " ", row.names = FALSE, col.names = FALSE)
 
