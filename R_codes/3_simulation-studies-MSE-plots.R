@@ -7,9 +7,6 @@ root <- paste(directory, 'thesis/', sep = '')
 
 source(file = paste(root, "R_codes/Functions/load_packages-IBEX.R", sep = ''))
 source(file = paste(root, "R_codes/Functions/auxiliary_functions.R", sep = ''))
-source(file = paste(root, "R_codes/Functions/cov_func.R", sep = ''))
-
-sourceCpp(file=paste(root, "R_codes/Functions/spatially_varying_parameters2.cpp",sep=''))
 
 ############################################     SIMULATION STUDY 1     ############################################
 
