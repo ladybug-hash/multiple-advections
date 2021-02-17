@@ -1,10 +1,10 @@
 
 directory <- '/home/salvanmo/Desktop/'
 
-root <- paste(directory, 'Spatio-Temporal-Cross-Covariance-Functions-under-the-Lagrangian-Framework/', sep = '')
+root <- paste(directory, 'multiple-advections/', sep = '')
 
-source(file = paste(root, "Functions/load_packages.R",sep=''))
-source(file = paste(root, "Functions/auxiliary_functions.R",sep=''))
+source(file = paste(root, "R_codes/Functions/load_packages.R",sep=''))
+source(file = paste(root, "R_codes/Functions/auxiliary_functions.R",sep=''))
 
 saudi<- map("world", "Saudi", fill = TRUE)
 IDs <- sapply(strsplit(saudi$names, ":"), function(x) x[1])
@@ -112,8 +112,7 @@ for (yr in 1980:2019){
 		data_array[, , , VAR] <- data_array_temp
 
 	}
-	save(data_array, file = paste(root, "Data/ncdf/covariates_", yr, '.RData', sep = ''))
-
+	save(data_array, file = paste(root, "Data/covariates_", yr, '.RData', sep = ''))
 }
 
 
