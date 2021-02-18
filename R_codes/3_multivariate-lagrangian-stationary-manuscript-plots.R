@@ -11,6 +11,13 @@ source(file = paste(root, "R_codes/Functions/auxiliary_functions.R", sep = ''))
 fig1 = T
 fig2 = T
 
+N <- 50
+n <- N^2
+TT <- 3
+grid_x <- seq(from = 0, to = 1, length.out = N)
+grid_y <- seq(from = 0, to = 1, length.out = N)
+dat3 <- sim_grid_locations <- expand.grid(grid_x, grid_y) %>% as.matrix()
+
 if(fig1){
 
 	r1 <- read.table(paste(root, 'Data/multivariate_stationary_nonfrozen_realizations_matern_multiple_example1', sep = ''), header = FALSE, sep = " ") %>% as.matrix()

@@ -22,8 +22,8 @@ ref_loc <- n / 2 + floor(N / 2)
 
 nonfrozen = T
 
-M3 <- T
-M4 <- F
+M3 <- F
+M4 <- T
 
 if(M3){
 	if(nonfrozen){	
@@ -70,7 +70,7 @@ if(M4){
 				VAR_MAT_MARGIN <- 0.1 * matrix(c(1, 0, 0, 0.99, 0, 0, 0, 1, 0, 0, 0.99, 0, 0, 0, 1, 0, 0, -0.9, 0.99, 0, 0, 1, 0, 0, 0, 0.99, 0, 0, 1, 0, 0, 0, -0.9, 0, 0, 1), ncol = 6, nrow = 6, byrow = T)
 			}
 			cat('COMPUTING COVARIANCE ... ', '\n')
-			cov1 <- nonfrozen_matern_cov_multi_advec_added_dimensions(theta = c(1, 1, 0.23, 0.5, 1, 0.5), wind_mu1 = c(0.1001, 0.1001, 0), wind_mu2 = c(0.1001, 0.1001, 0), wind_var1 = VAR_MAT_MARGIN[1:3, 1:3], wind_var2 = VAR_MAT_MARGIN[4:6, 4:6], wind_var12 = VAR_MAT_MARGIN[1:3, 4:6], max_time_lag = TT - 1, LOCS = sim_grid_locations)	
+			cov1 <- nonfrozen_matern_cov_multi_advec_added_dimensions(theta = c(1, 1, 0.23, 0.5, 1, 0.5), wind_mu1 = c(0.1001, 0.1001, 0.0501), wind_mu2 = c(0.1001, 0.1001, -0.0501), wind_var1 = VAR_MAT_MARGIN[1:3, 1:3], wind_var2 = VAR_MAT_MARGIN[4:6, 4:6], wind_var12 = VAR_MAT_MARGIN[1:3, 4:6], max_time_lag = TT - 1, LOCS = sim_grid_locations)	
 			write.table(cov1[c(ref_loc, n * TT + ref_loc), ], file = paste(root, 'Data/multivariate_stationary_nonfrozen_covariance_matern_added_dim_example', EXAMPLE, sep = ''), sep = " ", row.names = FALSE, col.names = FALSE)
 			write.table(cov1[c(ref_loc, n + ref_loc, n * 2 + ref_loc), ], file = paste(root, 'Data/multivariate_stationary_nonfrozen_crosscovariance_matern_added_dim_example', EXAMPLE, sep = ''), sep = " ", row.names = FALSE, col.names = FALSE)
 			set.seed(12345)

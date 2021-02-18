@@ -431,11 +431,11 @@ nonfrozen_matern_cov_multi_advec_added_dimensions <- function(theta, wind_mu1, w
 	################### RETURNS a q * nrow(LOCS) * (max_time_lag + 1) x q * nrow(LOCS) * (max_time_lag + 1) matrix 	###################
 	###################												###################	
 
-	LOCS1 <- LOCS1_FULL <- cbind(LOCS, rep(.1, n), rep(1, n))
+	LOCS1 <- LOCS1_FULL <- cbind(LOCS, rep(.2, n), rep(1, n))
 	LOCS2 <- LOCS2_FULL <- cbind(LOCS, rep(0, n), rep(1, n))
 
 	for(tt in 2:TT){
-		LOCS1_FULL <- rbind(LOCS1_FULL, cbind(LOCS, rep(0.1, n), rep(tt, n)))
+		LOCS1_FULL <- rbind(LOCS1_FULL, cbind(LOCS, rep(0.2, n), rep(tt, n)))
 		LOCS2_FULL <- rbind(LOCS2_FULL, cbind(LOCS, rep(0, n), rep(tt, n)))
 	}
 
@@ -462,7 +462,7 @@ nonfrozen_matern_cov_multi_advec_added_dimensions <- function(theta, wind_mu1, w
 
 	output <- foreach(tt = 1:TT, .packages = "MASS", .noexport = "nonfrozen_rcpp_added_dimensions") %dopar% {
 
-		locs2 <- cbind(LOCS, rep(0.1, n), rep(tt, n))
+		locs2 <- cbind(LOCS, rep(0.2, n), rep(tt, n))
 
 		Sigma_temp <- nonfrozen_rcpp_added_dimensions(Loc1 = LOCS1, Loc2 = locs2, param = c(sigma2[1], beta, nu[1]), v_mean = wind_mu1, v_var = wind_var1)
 
@@ -475,8 +475,7 @@ nonfrozen_matern_cov_multi_advec_added_dimensions <- function(theta, wind_mu1, w
 	output <- foreach(tt = 1:TT, .packages = "MASS", .noexport = "nonfrozen_rcpp_added_dimensions") %dopar% {
 
 		locs2 <- cbind(LOCS, rep(0, n), rep(tt, n))
-
-		Sigma_temp <- nonfrozen_rcpp_added_dimensions(Loc1 = LOCS1, Loc2 = locs2, param = c(sigma2[2], beta, nu[2]), v_mean = wind_mu2, v_var = wind_var2)
+		Sigma_temp <- nonfrozen_rcpp_added_dimensions(Loc1 = LOCS2, Loc2 = locs2, param = c(sigma2[2], beta, nu[2]), v_mean = wind_mu2, v_var = wind_var2)
 
 		return(Sigma_temp)
 
@@ -492,6 +491,7 @@ nonfrozen_matern_cov_multi_advec_added_dimensions <- function(theta, wind_mu1, w
 
 	return(S)
 }
+
 
 nonfrozen_lmc_cov_small_scale <- function(theta, wind_mu1, wind_mu2, wind_var1, wind_var2, coef_mat1, coef_mat2, max_time_lag, q = 2, LOCS){
   
